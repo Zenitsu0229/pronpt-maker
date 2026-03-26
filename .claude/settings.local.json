@@ -5,7 +5,10 @@
       "Bash(cp -r \"D:/02_project/pronpt-maker/D/02_project/pronpt-maker/.\" \"D:/02_project/pronpt-maker/\")",
       "Bash(rm -rf \"D:/02_project/pronpt-maker/D\")",
       "Bash(npm install:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }
