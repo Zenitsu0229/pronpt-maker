@@ -135,15 +135,20 @@ function App() {
                 </div>
               )}
               <div className="neg-presets">
-                {negativePresets.map((preset) => (
+                {negativePresets.map((preset) => {
+                  const len = preset.label.length;
+                  const span = len >= 11 ? 3 : len >= 6 ? 2 : 1;
+                  return (
                   <button
                     key={preset.value}
                     className={`tag-btn-neg ${selectedNegPresets.includes(preset.value) ? "selected" : ""}`}
+                    style={{ gridColumn: `span ${span}` }}
                     onClick={() => handleToggleNegPreset(preset.value)}
                   >
                     {preset.label}
                   </button>
-                ))}
+                  );
+                })}
               </div>
               <textarea
                 className="custom-textarea"

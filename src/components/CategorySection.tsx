@@ -8,14 +8,28 @@ interface Props {
   onToggleTag: (categoryId: string, value: string, multiSelect: boolean) => void;
 }
 
+function getSpan(label: string): number {
+  const len = label.length;
+  if (len >= 11) return 3;
+  if (len >= 6)  return 2;
+  return 1;
+}
+
 export function CategorySection({ category, selectedTags, onToggleTag }: Props) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isPinned, setIsPinned] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const isOpen = isPinned || isHovered || selectedTags.length > 0;
 
   return (
-    <div className="category-section">
+    <div
+      className="category-section"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <button
-        className="category-header"
-        onClick={() => setIsOpen((v) => !v)}
+        className={`category-header ${isPinned ? "pinned" : ""}`}
+        onClick={() => setIsPinned((v) => !v)}
         aria-expanded={isOpen}
       >
         <span className="category-name">
@@ -30,24 +44,27 @@ export function CategorySection({ category, selectedTags, onToggleTag }: Props) 
         </span>
       </button>
 
-      {isOpen && (
-        <div className="tag-grid">
-          {category.tags.map((tag: Tag) => {
-            const isSelected = selectedTags.includes(tag.value);
-            return (
-              <button
-                key={tag.value}
-                className={`tag-btn ${isSelected ? "selected" : ""}`}
-                onClick={() =>
-                  onToggleTag(category.id, tag.value, category.multiSelect ?? false)
-                }
-              >
-                {tag.label}
-              </button>
-            );
-          })}
+      <div className={`tag-grid-wrapper ${isOpen ? "open" : ""}`}>
+        <div className="tag-grid-inner">
+          <div className="tag-grid">
+            {category.tags.map((tag: Tag) => {
+              const isSelected = selectedTags.includes(tag.value);
+              return (
+                <button
+                  key={tag.value}
+                  className={`tag-btn ${isSelected ? "selected" : ""}`}
+                  style={{ gridColumn: `span ${getSpan(tag.label)}` }}
+                  onClick={() =>
+                    onToggleTag(category.id, tag.value, category.multiSelect ?? false)
+                  }
+                >
+                  {tag.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
