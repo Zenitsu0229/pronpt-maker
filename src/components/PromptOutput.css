@@ -1,0 +1,81 @@
+.prompt-output {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.output-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.output-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.output-label.negative {
+  color: var(--color-danger);
+}
+
+.copy-btn {
+  padding: 5px 14px;
+  border-radius: 6px;
+  border: 1.5px solid var(--color-accent);
+  background: transparent;
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.copy-btn:hover:not(:disabled) {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.copy-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.copy-btn.copied {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.output-box {
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-text);
+  word-break: break-all;
+  min-height: 60px;
+  font-family: "Courier New", monospace;
+}
+
+.output-box.empty {
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-style: italic;
+  font-size: 13px;
+}
+
+.negative-box {
+  color: var(--color-danger);
+}

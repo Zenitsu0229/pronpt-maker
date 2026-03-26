@@ -1,0 +1,92 @@
+.checkpoint-section {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkpoint-select-wrapper {
+  position: relative;
+}
+
+.checkpoint-select {
+  width: 100%;
+  padding: 10px 36px 10px 14px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  transition: border-color 0.15s;
+}
+
+.checkpoint-select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.checkpoint-select option {
+  background: #1a1d2e;
+  color: var(--color-text);
+}
+
+.checkpoint-info {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkpoint-info-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.base-model-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.checkpoint-desc {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.checkpoint-quality {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quality-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.quality-code {
+  font-size: 11px;
+  background: rgba(99, 102, 241, 0.08);
+  padding: 5px 8px;
+  border-radius: 6px;
+  word-break: break-all;
+  line-height: 1.6;
+  font-family: "Courier New", monospace;
+}
