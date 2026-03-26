@@ -60,6 +60,20 @@ function App() {
     return parts.join(", ");
   }, [selectedCheckpoint, selections, hasCategorySelection]);
 
+  const promptLines = useMemo(() => {
+    const lines: { name: string; tags: string[] }[] = [];
+    if (hasCategorySelection && selectedCheckpoint?.qualityPrompt) {
+      lines.push({ name: `チェックポイント（${selectedCheckpoint.name}）`, tags: [selectedCheckpoint.qualityPrompt] });
+    }
+    categories.forEach((cat: Category) => {
+      const tags = selections[cat.id] ?? [];
+      if (tags.length > 0) {
+        lines.push({ name: cat.name, tags });
+      }
+    });
+    return lines;
+  }, [selectedCheckpoint, selections, hasCategorySelection]);
+
   const fullNegativePrompt = useMemo(() => {
     const parts: string[] = [];
 
@@ -179,6 +193,8 @@ function App() {
               <PromptOutput
                 prompt={generatedPrompt}
                 negativePrompt={fullNegativePrompt}
+                promptLines={promptLines}
+                checkpointName={selectedCheckpoint?.name}
               />
             </div>
           </div>
