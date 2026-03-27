@@ -40,6 +40,7 @@ export const PROMPT_CATEGORY_ORDER: readonly string[] = [
   "summoning",           // 召喚・使い魔
   "r18_general",         // R18・汎用
   "r18_male",            // R18・男性向け
+  "r18_fetish",          // R18・特殊プレイ
 
   // ── 構図・背景 ────────────────────────────────────
   "composition",         // 構図・カメラ

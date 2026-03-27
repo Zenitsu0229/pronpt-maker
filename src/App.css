@@ -163,6 +163,23 @@ body {
   white-space: nowrap;
 }
 
+.r18-relock-btn {
+  padding: 2px 8px;
+  background: transparent;
+  border: 1px solid rgba(244, 114, 182, 0.35);
+  border-radius: var(--radius);
+  color: #f472b6;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.r18-relock-btn:hover {
+  background: rgba(244, 114, 182, 0.12);
+  border-color: #f472b6;
+}
+
 /* ── Negative section ── */
 .custom-section {
   background: var(--bg-2);

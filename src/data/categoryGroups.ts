@@ -48,6 +48,7 @@ export const CATEGORY_GROUP_MAP: Record<string, CategoryGroup> = {
   // R18
   r18_general:         "r18",
   r18_male:            "r18",
+  r18_fetish:          "r18",
   // 構図・画風
   composition:         "visual",
   focus:               "visual",
@@ -88,6 +89,7 @@ export const UI_CATEGORY_ORDER: readonly string[] = [
   // R18
   "r18_general",
   "r18_male",
+  "r18_fetish",
   // 構図・画風
   "composition",
   "focus",

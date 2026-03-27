@@ -15,6 +15,7 @@ import { CheckpointSection } from "./components/CheckpointSection";
 import { PromptOutput } from "./components/PromptOutput";
 import { WeightSliders } from "./components/WeightSliders";
 import { PresetSelector } from "./components/PresetSelector";
+import { R18Lock } from "./components/R18Lock";
 import type { Selections, WeightMap } from "./types";
 import "./App.css";
 
@@ -31,6 +32,7 @@ function App() {
   const [weights, setWeights] = useState<WeightMap>({});
   const [selectedNegPresets, setSelectedNegPresets] = useState<string[]>([]);
   const [negativePrompt, setNegativePrompt] = useState("");
+  const [r18Unlocked, setR18Unlocked] = useState(false);
 
   // ── Derived ────────────────────────────────────────────────────────────
   const checkpoint = checkpoints.find((c) => c.id === selectedCheckpointId) ?? null;
@@ -79,6 +81,17 @@ function App() {
     setNegativePrompt("");
   }, []);
 
+  const handleR18Unlock = useCallback(() => setR18Unlocked(true), []);
+  const handleR18Lock   = useCallback(() => {
+    setR18Unlocked(false);
+    setSelections((prev) => {
+      const next = { ...prev };
+      delete next["r18_general"];
+      delete next["r18_male"];
+      return next;
+    });
+  }, []);
+
   const totalSelected = Object.values(selections).reduce(
     (sum, tags) => sum + tags.length,
     0,
@@ -121,11 +134,52 @@ function App() {
             {/* グループ区切り付きカテゴリ一覧 */}
             {(() => {
               let lastGroup: string | undefined;
+              let r18DividerShown = false;
               return UI_CATEGORIES.map((cat) => {
                 const groupKey = CATEGORY_GROUP_MAP[cat.id];
                 const group = groupKey ? CATEGORY_GROUPS[groupKey] : undefined;
+                const isR18 = groupKey === "r18";
                 const showDivider = groupKey !== lastGroup;
                 lastGroup = groupKey;
+
+                // R18 グループの区切りとロック UI（最初の R18 カテゴリのみ）
+                if (isR18 && !r18DividerShown) {
+                  r18DividerShown = true;
+                  return (
+                    <Fragment key={cat.id}>
+                      <div
+                        className="group-divider"
+                        style={{ "--group-color": group!.color } as React.CSSProperties}
+                      >
+                        <span className="group-divider-label">{group!.label}</span>
+                        {r18Unlocked && (
+                          <button className="r18-relock-btn" onClick={handleR18Lock} title="再ロック">
+                            🔓 ロック
+                          </button>
+                        )}
+                      </div>
+                      {r18Unlocked ? (
+                        <>
+                          {UI_CATEGORIES.filter((c) => CATEGORY_GROUP_MAP[c.id] === "r18").map((r18cat) => (
+                            <CategorySection
+                              key={r18cat.id}
+                              category={r18cat}
+                              selectedTags={selections[r18cat.id] ?? []}
+                              groupColor={group?.color}
+                              onToggleTag={handleToggleTag}
+                            />
+                          ))}
+                        </>
+                      ) : (
+                        <R18Lock onUnlock={handleR18Unlock} />
+                      )}
+                    </Fragment>
+                  );
+                }
+
+                // R18 カテゴリは上で一括レンダリングするためスキップ
+                if (isR18) return null;
+
                 return (
                   <Fragment key={cat.id}>
                     {showDivider && group && (
