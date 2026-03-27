@@ -1,107 +1,90 @@
-import { useState, useMemo } from "react";
+import { useState, useCallback, Fragment } from "react";
 import { categories, negativePresets } from "./data/categories";
-import type { Category } from "./data/categories";
 import { checkpoints } from "./data/checkpoints";
+import { presets } from "./data/presets";
+import type { Preset } from "./data/presets";
+import {
+  CATEGORY_GROUPS,
+  CATEGORY_GROUP_MAP,
+  UI_CATEGORY_ORDER,
+} from "./data/categoryGroups";
+import { usePromptBuilder } from "./hooks/usePromptBuilder";
+import { useNegativePrompt } from "./hooks/useNegativePrompt";
 import { CategorySection } from "./components/CategorySection";
 import { CheckpointSection } from "./components/CheckpointSection";
 import { PromptOutput } from "./components/PromptOutput";
+import { WeightSliders } from "./components/WeightSliders";
+import { PresetSelector } from "./components/PresetSelector";
+import type { Selections, WeightMap } from "./types";
 import "./App.css";
 
-type Selections = Record<string, string[]>;
+// カテゴリ ID → カテゴリオブジェクト
+const CATEGORY_MAP = Object.fromEntries(categories.map((c) => [c.id, c]));
+
+// UI 表示順に並べたカテゴリ（グループ単位でまとまっている）
+const UI_CATEGORIES = UI_CATEGORY_ORDER.map((id) => CATEGORY_MAP[id]).filter(Boolean);
 
 function App() {
+  // ── State ──────────────────────────────────────────────────────────────
   const [selectedCheckpointId, setSelectedCheckpointId] = useState<string | null>(null);
   const [selections, setSelections] = useState<Selections>({});
-  const [negativePrompt, setNegativePrompt] = useState("");
+  const [weights, setWeights] = useState<WeightMap>({});
   const [selectedNegPresets, setSelectedNegPresets] = useState<string[]>([]);
+  const [negativePrompt, setNegativePrompt] = useState("");
 
-  const selectedCheckpoint = checkpoints.find((c) => c.id === selectedCheckpointId) ?? null;
+  // ── Derived ────────────────────────────────────────────────────────────
+  const checkpoint = checkpoints.find((c) => c.id === selectedCheckpointId) ?? null;
 
-  const handleToggleTag = (categoryId: string, value: string, multiSelect: boolean) => {
-    setSelections((prev) => {
-      const current = prev[categoryId] ?? [];
-      if (multiSelect) {
-        return {
-          ...prev,
-          [categoryId]: current.includes(value)
+  // ── Prompt ─────────────────────────────────────────────────────────────
+  const { generatedPrompt, promptLines } = usePromptBuilder(selections, weights, checkpoint);
+  const fullNegativePrompt = useNegativePrompt(checkpoint, selectedNegPresets, negativePrompt);
+
+  // ── Handlers ───────────────────────────────────────────────────────────
+  const handleToggleTag = useCallback(
+    (categoryId: string, value: string, multiSelect: boolean) => {
+      setSelections((prev) => {
+        const current = prev[categoryId] ?? [];
+        const next = multiSelect
+          ? current.includes(value)
             ? current.filter((v) => v !== value)
-            : [...current, value],
-        };
-      } else {
-        return {
-          ...prev,
-          [categoryId]: current.includes(value) ? [] : [value],
-        };
-      }
-    });
-  };
+            : [...current, value]
+          : current.includes(value)
+            ? []
+            : [value];
+        return { ...prev, [categoryId]: next };
+      });
+    },
+    [],
+  );
 
-  const handleToggleNegPreset = (value: string) => {
+  const handleToggleNegPreset = useCallback((value: string) => {
     setSelectedNegPresets((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
     );
-  };
+  }, []);
 
-  const hasCategorySelection = Object.values(selections).some((tags) => tags.length > 0);
+  const handleWeightChange = useCallback((id: string, weight: number) => {
+    setWeights((prev) => ({ ...prev, [id]: weight }));
+  }, []);
 
-  const generatedPrompt = useMemo(() => {
-    const parts: string[] = [];
+  const handleApplyPreset = useCallback((preset: Preset) => {
+    setSelections((prev) => ({ ...prev, ...preset.selections }));
+  }, []);
 
-    // チェックポイントの品質タグはカテゴリ選択済みのときのみ付与
-    if (hasCategorySelection && selectedCheckpoint?.qualityPrompt) {
-      parts.push(selectedCheckpoint.qualityPrompt);
-    }
-
-    categories.forEach((cat: Category) => {
-      const tags = selections[cat.id] ?? [];
-      parts.push(...tags);
-    });
-
-    return parts.join(", ");
-  }, [selectedCheckpoint, selections, hasCategorySelection]);
-
-  const promptLines = useMemo(() => {
-    const lines: { name: string; tags: string[] }[] = [];
-    if (hasCategorySelection && selectedCheckpoint?.qualityPrompt) {
-      lines.push({ name: `チェックポイント（${selectedCheckpoint.name}）`, tags: [selectedCheckpoint.qualityPrompt] });
-    }
-    categories.forEach((cat: Category) => {
-      const tags = selections[cat.id] ?? [];
-      if (tags.length > 0) {
-        lines.push({ name: cat.name, tags });
-      }
-    });
-    return lines;
-  }, [selectedCheckpoint, selections, hasCategorySelection]);
-
-  const fullNegativePrompt = useMemo(() => {
-    const parts: string[] = [];
-
-    if (selectedCheckpoint?.recommendedNegative) {
-      parts.push(selectedCheckpoint.recommendedNegative);
-    }
-
-    negativePresets
-      .filter((p) => selectedNegPresets.includes(p.value))
-      .forEach((p) => parts.push(p.value));
-
-    if (negativePrompt.trim()) parts.push(negativePrompt.trim());
-
-    return parts.join(", ");
-  }, [selectedCheckpoint, selectedNegPresets, negativePrompt]);
-
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setSelectedCheckpointId(null);
     setSelections({});
-    setNegativePrompt("");
+    setWeights({});
     setSelectedNegPresets([]);
-  };
+    setNegativePrompt("");
+  }, []);
 
   const totalSelected = Object.values(selections).reduce(
     (sum, tags) => sum + tags.length,
-    0
+    0,
   );
 
+  // ── Render ─────────────────────────────────────────────────────────────
   return (
     <div className="app">
       <header className="header">
@@ -116,54 +99,82 @@ function App() {
 
       <main className="main">
         <div className="layout">
+          {/* ── 左パネル：入力 ─────────────────────────────────── */}
           <div className="left-panel">
             <div className="panel-header">
               <h2 className="panel-title">チェックポイント</h2>
-              <button className="btn-ghost" onClick={handleReset}>
-                リセット
-              </button>
+              <button className="btn-ghost" onClick={handleReset}>リセット</button>
             </div>
+
             <CheckpointSection
               checkpoints={checkpoints}
               selectedId={selectedCheckpointId}
               onSelect={setSelectedCheckpointId}
             />
 
+            <PresetSelector presets={presets} onApply={handleApplyPreset} />
+
             <div className="panel-header" style={{ marginTop: 8 }}>
               <h2 className="panel-title">カテゴリ選択</h2>
             </div>
-            {categories.map((cat: Category) => (
-              <CategorySection
-                key={cat.id}
-                category={cat}
-                selectedTags={selections[cat.id] ?? []}
-                onToggleTag={handleToggleTag}
-              />
-            ))}
 
+            {/* グループ区切り付きカテゴリ一覧 */}
+            {(() => {
+              let lastGroup: string | undefined;
+              return UI_CATEGORIES.map((cat) => {
+                const groupKey = CATEGORY_GROUP_MAP[cat.id];
+                const group = groupKey ? CATEGORY_GROUPS[groupKey] : undefined;
+                const showDivider = groupKey !== lastGroup;
+                lastGroup = groupKey;
+                return (
+                  <Fragment key={cat.id}>
+                    {showDivider && group && (
+                      <div
+                        className="group-divider"
+                        style={{ "--group-color": group.color } as React.CSSProperties}
+                      >
+                        <span className="group-divider-label">{group.label}</span>
+                      </div>
+                    )}
+                    <CategorySection
+                      category={cat}
+                      selectedTags={selections[cat.id] ?? []}
+                      groupColor={group?.color}
+                      onToggleTag={handleToggleTag}
+                    />
+                  </Fragment>
+                );
+              });
+            })()}
+
+            <WeightSliders weights={weights} onChange={handleWeightChange} />
+
+            {/* ── ネガティブプロンプト ── */}
             <div className="custom-section negative-section">
               <label className="custom-label negative">ネガティブプロンプト</label>
-              {selectedCheckpoint && (
+
+              {checkpoint && (
                 <div className="neg-checkpoint-hint">
                   <span className="field-label">チェックポイント推奨ネガティブを自動追加済み</span>
                 </div>
               )}
+
               <div className="neg-presets">
                 {negativePresets.map((preset) => {
-                  const len = preset.label.length;
-                  const span = len >= 11 ? 3 : len >= 6 ? 2 : 1;
+                  const span = preset.label.length >= 11 ? 3 : preset.label.length >= 6 ? 2 : 1;
                   return (
-                  <button
-                    key={preset.value}
-                    className={`tag-btn-neg ${selectedNegPresets.includes(preset.value) ? "selected" : ""}`}
-                    style={{ gridColumn: `span ${span}` }}
-                    onClick={() => handleToggleNegPreset(preset.value)}
-                  >
-                    {preset.label}
-                  </button>
+                    <button
+                      key={preset.value}
+                      className={`tag-btn-neg ${selectedNegPresets.includes(preset.value) ? "selected" : ""}`}
+                      style={{ gridColumn: `span ${span}` }}
+                      onClick={() => handleToggleNegPreset(preset.value)}
+                    >
+                      {preset.label}
+                    </button>
                   );
                 })}
               </div>
+
               <textarea
                 className="custom-textarea"
                 placeholder="除外したい要素を入力..."
@@ -174,6 +185,7 @@ function App() {
             </div>
           </div>
 
+          {/* ── 右パネル：出力 ─────────────────────────────────── */}
           <div className="right-panel">
             <div className="output-sticky">
               <div className="panel-header">
@@ -183,10 +195,10 @@ function App() {
                 )}
               </div>
 
-              {selectedCheckpoint && (
+              {checkpoint && (
                 <div className="checkpoint-summary">
                   <span className="checkpoint-summary-label">モデル</span>
-                  <span className="checkpoint-summary-name">{selectedCheckpoint.name}</span>
+                  <span className="checkpoint-summary-name">{checkpoint.name}</span>
                 </div>
               )}
 
@@ -194,7 +206,7 @@ function App() {
                 prompt={generatedPrompt}
                 negativePrompt={fullNegativePrompt}
                 promptLines={promptLines}
-                checkpointName={selectedCheckpoint?.name}
+                checkpointName={checkpoint?.name}
               />
             </div>
           </div>

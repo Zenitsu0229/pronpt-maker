@@ -16,7 +16,7 @@
   background: var(--bg-3);
 }
 
-.output-label { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+.output-label { font-size: 12px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
 .output-label.negative { color: var(--danger); }
 
 .output-actions { display: flex; align-items: center; gap: 4px; }
@@ -27,7 +27,7 @@
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-dim);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.1s;
@@ -42,7 +42,7 @@
   border: 1px solid var(--accent);
   background: transparent;
   color: var(--accent);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.1s;
@@ -54,12 +54,12 @@
 
 .output-box {
   padding: 8px 10px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.7;
   color: var(--text);
   word-break: break-all;
   min-height: 52px;
   font-family: "Courier New", monospace;
 }
-.output-box.empty { color: var(--text-dim); font-family: inherit; font-style: italic; font-size: 11px; }
+.output-box.empty { color: var(--text-dim); font-family: inherit; font-style: italic; font-size: 12px; }
 .negative-box { color: var(--danger); }

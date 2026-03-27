@@ -5,6 +5,7 @@ import "./CategorySection.css";
 interface Props {
   category: Category;
   selectedTags: string[];
+  groupColor?: string;
   onToggleTag: (categoryId: string, value: string, multiSelect: boolean) => void;
 }
 
@@ -15,15 +16,17 @@ function getSpan(label: string): number {
   return 1;
 }
 
-export function CategorySection({ category, selectedTags, onToggleTag }: Props) {
+export function CategorySection({ category, selectedTags, groupColor, onToggleTag }: Props) {
   const [isPinned, setIsPinned] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   const isOpen = isPinned || isHovered || selectedTags.length > 0;
+  const color = groupColor ?? "var(--accent)";
 
   return (
     <div
       className="category-section"
+      style={{ "--group-color": color } as React.CSSProperties}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -54,9 +57,7 @@ export function CategorySection({ category, selectedTags, onToggleTag }: Props) 
                   key={tag.value}
                   className={`tag-btn ${isSelected ? "selected" : ""}`}
                   style={{ gridColumn: `span ${getSpan(tag.label)}` }}
-                  onClick={() =>
-                    onToggleTag(category.id, tag.value, category.multiSelect ?? false)
-                  }
+                  onClick={() => onToggleTag(category.id, tag.value, category.multiSelect ?? false)}
                 >
                   {tag.label}
                 </button>

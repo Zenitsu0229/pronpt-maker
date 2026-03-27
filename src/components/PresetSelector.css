@@ -1,0 +1,79 @@
+.preset-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0 4px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.preset-bar-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.preset-list {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+.preset-list::-webkit-scrollbar { display: none; }
+
+/* ── Card ── */
+.preset-card {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  color: var(--text);
+  transition: background 0.12s var(--ease),
+              border-color 0.12s var(--ease),
+              color 0.12s var(--ease),
+              transform 0.1s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.preset-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--preset-color, var(--accent));
+  opacity: 0.7;
+  transition: width 0.15s var(--ease), opacity 0.15s var(--ease);
+}
+
+.preset-card:hover {
+  background: var(--bg-4);
+  border-color: var(--preset-color, var(--accent));
+  color: var(--text-bright);
+  transform: translateY(-1px);
+}
+
+.preset-card:hover::before {
+  width: 100%;
+  opacity: 0.08;
+}
+
+.preset-card:active { transform: translateY(0); }
+
+.preset-card:focus-visible {
+  outline: 1px solid var(--preset-color, var(--accent));
+  outline-offset: 1px;
+}
+
+.preset-icon { font-size: 13px; line-height: 1; }
+.preset-label { font-size: 11px; font-weight: 600; }

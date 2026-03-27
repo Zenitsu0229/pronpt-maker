@@ -559,7 +559,46 @@ export const categories: Category[] = [
     ],
   },
 
-  // ⑮ 動作
+  // ⑮ 状態・エフェクト
+  {
+    id: "state_effects",
+    name: "状態・エフェクト",
+    nameEn: "State / Effects",
+    multiSelect: true,
+    tags: [
+      // 汗
+      { label: "汗",               value: "sweat, sweating" },
+      { label: "玉の汗",           value: "sweat drops, bead of sweat" },
+      { label: "びっしょり汗",     value: "drenched in sweat, soaking wet sweat, sweaty body" },
+      { label: "額の汗",           value: "sweat on forehead, forehead sweat drop" },
+      // 涙
+      { label: "涙",               value: "tears, teary" },
+      { label: "大粒の涙",         value: "large tears, streaming tears, tears flowing down cheeks" },
+      { label: "目に涙",           value: "teary eyes, watery eyes, glistening eyes" },
+      { label: "泣きながら",       value: "crying, tears streaming, sobbing" },
+      // 涎
+      { label: "よだれ",           value: "drooling, saliva, drool" },
+      { label: "糸引くよだれ",     value: "drool string, thin saliva string, mouth drooling" },
+      // 血・その他体液
+      { label: "鼻血",             value: "nosebleed" },
+      // 肌・体の状態
+      { label: "赤面・ほてり",     value: "blushing, flushed cheeks, flushed skin" },
+      { label: "肌が濡れている",   value: "wet skin, glistening skin, wet body" },
+      { label: "震え",             value: "trembling, shivering, quivering" },
+      { label: "疲労・ぐったり",   value: "exhausted, tired, weakened, limp body" },
+      // 感情エフェクト
+      { label: "ハート（演出）",   value: "heart symbol, floating hearts, love hearts" },
+      { label: "キラキラ",         value: "sparkles, glitter, shining particles, stars" },
+      { label: "吹き出し（！）",   value: "exclamation mark, surprised effect, !!" },
+      { label: "怒りマーク",       value: "anger mark, angry vein, popping vein" },
+      // 特殊
+      { label: "アヘ顔",           value: "ahegao, rolled back eyes, drooling, ecstatic expression" },
+      { label: "放心",             value: "vacant expression, dazed, mind break, empty eyes" },
+      { label: "白目",             value: "rolled back eyes, white of eyes showing" },
+    ],
+  },
+
+  // ⑯ 動作
   {
     id: "action",
     name: "動作",
@@ -677,7 +716,209 @@ export const categories: Category[] = [
     ],
   },
 
-  // ⑲ 背景・場所（アニメ向け拡充）
+  // ⑲ シチュエーション
+  {
+    id: "situation",
+    name: "シチュエーション",
+    nameEn: "Situation / Scene",
+    multiSelect: true,
+    tags: [
+      // 日常生活
+      { label: "朝の目覚め",         value: "morning, waking up, sunrise, sleepy, bed" },
+      { label: "着替え中",           value: "changing clothes, undressing, getting dressed, bedroom" },
+      { label: "シャワー中",         value: "in the shower, showering, wet hair, steam, bathroom" },
+      { label: "入浴中",             value: "bathing, in the bathtub, bath foam, steam, relaxing" },
+      { label: "洗面・歯磨き",       value: "brushing teeth, washing face, bathroom mirror, morning routine" },
+      { label: "料理中",             value: "cooking, in the kitchen, apron, preparing food" },
+      { label: "食事中",             value: "eating, at the dining table, meal time, food" },
+      { label: "就寝前",             value: "before bed, nightwear, dim light, cozy bedroom" },
+      { label: "寝転び",             value: "lying on bed, lounging, relaxing on bed" },
+      { label: "ゲーム中",           value: "playing video games, controller, focused, TV screen" },
+      { label: "音楽を聴く",         value: "listening to music, headphones, relaxing, eyes closed" },
+      { label: "読書中",             value: "reading a book, quiet room, cozy, sitting" },
+      // 学校・青春
+      { label: "授業中",             value: "during class, classroom, school desk, textbook, teacher" },
+      { label: "放課後",             value: "after school, sunset, school hallway, casual" },
+      { label: "部活動",             value: "club activity, after school practice, team" },
+      { label: "文化祭",             value: "school festival, cultural festival, class booth, costumes, excited crowd" },
+      { label: "体育祭",             value: "sports day, athletic festival, cheering, tracksuit" },
+      { label: "修学旅行",           value: "school trip, field trip, hotel room, sightseeing with classmates" },
+      { label: "試験直前",           value: "exam cramming, nervous, notes everywhere, deadline pressure" },
+      { label: "体育の授業",         value: "PE class, gymnasium, sportswear, exercise" },
+      // アウトドア・レジャー
+      { label: "海水浴",             value: "swimming at the beach, ocean, waves, summer, sunbathing" },
+      { label: "ピクニック",         value: "picnic, outdoor lunch, grass, sunny, blanket, basket" },
+      { label: "キャンプ",           value: "camping, campfire, tent, night sky, forest" },
+      { label: "花火大会",           value: "fireworks festival, yukata, night sky, colorful fireworks" },
+      { label: "スキー・雪山",       value: "skiing, snowy mountain, ski slope, winter sports, snow" },
+      { label: "夏祭り",             value: "summer festival, food stalls, yukata, lanterns, crowd" },
+      { label: "花見",               value: "hanami, cherry blossom viewing, picnic under sakura, spring" },
+      // 恋愛・ロマンス
+      { label: "デート",             value: "on a date, walking together, romantic atmosphere, city evening" },
+      { label: "告白シーン",         value: "confessing feelings, nervous, holding flowers, sunset, blushing" },
+      { label: "手をつなぐ",         value: "holding hands, walking together, couple, close" },
+      { label: "添い寝",             value: "sleeping side by side, sharing a bed, peaceful, bedroom" },
+      { label: "抱き寄せられる",     value: "being held, embraced from behind, hugged, warm" },
+      { label: "見つめ合う",         value: "gazing into each other's eyes, close faces, intimate, romantic tension" },
+      // 特別イベント
+      { label: "クリスマス",         value: "christmas, christmas tree, gifts, winter, santa hat, cozy" },
+      { label: "バレンタイン",       value: "valentine's day, chocolate, heart, love letter, blushing" },
+      { label: "ハロウィン",         value: "halloween, costume, pumpkin, trick or treat, spooky" },
+      { label: "誕生日",             value: "birthday party, cake with candles, balloons, celebration, happy" },
+      { label: "初詣",               value: "new year shrine visit, kimono, shrine gate, cold morning, prayer" },
+      // アドベンチャー・ファンタジー
+      { label: "旅の途中",           value: "on a journey, road, backpack, traveling, landscape" },
+      { label: "ダンジョン探索",     value: "dungeon exploration, dark corridor, torch, treasure chest, adventurer" },
+      { label: "魔王戦",             value: "final boss battle, epic confrontation, glowing magic, clash" },
+      { label: "依頼達成・勝利",     value: "quest complete, victorious pose, triumphant, reward" },
+      { label: "修行・特訓",         value: "training montage, intense practice, sweating, determination" },
+      { label: "異世界転移",         value: "transported to another world, portal, fantasy world, confused" },
+      { label: "冒険の宿屋",         value: "inn, tavern, adventurer's rest, fireplace, ale, medieval interior" },
+      // 戦闘・シリアス
+      { label: "戦闘中",             value: "in battle, mid-fight, dynamic action, clash, sparks" },
+      { label: "奇襲・緊張",         value: "ambush, tense standoff, cornered, adrenaline" },
+      { label: "撤退・逃走",         value: "retreating, running away, chase, desperate escape" },
+      { label: "敗北・倒れる",       value: "defeated, collapsed, fallen to the ground, bruised" },
+      { label: "救助される",         value: "being rescued, carried, saved, relief expression" },
+    ],
+  },
+
+  // R18・汎用
+  {
+    id: "r18_general",
+    name: "R18・汎用",
+    nameEn: "R18 / General Adult",
+    multiSelect: true,
+    tags: [
+      // 雰囲気・前戯
+      { label: "誘惑・誘い",         value: "seduction, tempting, inviting gesture, suggestive, come hither" },
+      { label: "壁ドン",             value: "kabe-don, hand on wall, close face, pinned against wall, intense" },
+      { label: "床ドン",             value: "pinned to the floor, looming over, dominant, floor, eye contact" },
+      { label: "見つめ合い・緊張",   value: "intense eye contact, charged atmosphere, heavy breathing, about to kiss" },
+      { label: "耳元で囁く",         value: "whispering in ear, close face, breath on neck, shiver" },
+      { label: "首筋を舐める",       value: "licking neck, tongue on neck, nuzzling neck, intimate" },
+      { label: "キス",               value: "kissing, lips touching, kiss, romantic, closed eyes" },
+      { label: "深いキス",           value: "deep kiss, passionate kiss, tongue kiss, intense embrace" },
+      { label: "胸に顔を埋める",     value: "face buried in chest, nuzzling, holding head, gentle" },
+      { label: "服を脱がされる",     value: "clothes being removed, undressing, exposed shoulders, hesitation" },
+      { label: "覗き・のぞき見",     value: "peeping, voyeur, spying through gap, surprised, unaware" },
+      { label: "偶然の目撃",         value: "accidentally seen, walk-in, surprised expression, embarrassed" },
+      // 拘束・支配
+      { label: "手首を掴まれる",     value: "wrist grabbed, held firmly, dominated, struggling" },
+      { label: "拘束（縄）",         value: "rope bondage, tied up with rope, bound, helpless" },
+      { label: "拘束（手錠）",       value: "handcuffed, wrists cuffed, restrained, metallic cuffs" },
+      { label: "目隠し",             value: "blindfolded, eyes covered with cloth, disoriented, vulnerable" },
+      { label: "猿轡",               value: "gagged, mouth covered, cloth gag, muffled" },
+      { label: "押し倒し",           value: "pinned down, pushed onto bed, dominant, on the floor" },
+      { label: "馬乗り",             value: "straddling, sitting on top, dominant position, pinned" },
+      { label: "首輪・鎖",           value: "collar and chain, pet play, leash, submissive, on all fours" },
+      // 場所・環境
+      { label: "更衣室",             value: "changing room, locker room, undressing, caught off guard" },
+      { label: "寝室・ベッド",       value: "bedroom, on the bed, dim lighting, intimate atmosphere, sheets" },
+      { label: "浴室・お風呂",       value: "bathroom, wet, bathtub, steam, slippery, intimate" },
+      { label: "シャワールーム",     value: "shower room, wet body, running water, glass wall, steam" },
+      { label: "野外・公園",         value: "outdoor sex, park, risky, public, hidden behind bushes" },
+      { label: "学校・放課後",       value: "after school, empty classroom, desk, forbidden, secret" },
+      { label: "職場・残業後",       value: "office after hours, desk, late night, forbidden, work clothes" },
+      { label: "和室・布団",         value: "japanese room, futon, tatami, intimate, dim lighting" },
+      { label: "温泉・露天風呂",     value: "hot spring, outdoor bath, steam, wet skin, naked, towel" },
+      { label: "ラブホテル",         value: "love hotel room, mirror ceiling, decorative bed, dim pink light" },
+      // 行為
+      { label: "フェラチオ",         value: "fellatio, on knees, eye contact, submissive" },
+      { label: "クンニ",             value: "cunnilingus, lying down, legs spread, intimate, pleasure" },
+      { label: "手コキ",             value: "handjob, stroking, eye contact, hand around shaft" },
+      { label: "手マン",             value: "fingering, fingers inside, arched back, moaning" },
+      { label: "パイズリ",           value: "paizuri, breasts wrapped around, looking up, breast sex" },
+      { label: "正常位",             value: "missionary position, lying down, face to face, intimate" },
+      { label: "騎乗位",             value: "cowgirl position, on top, riding, dominant female, straddling" },
+      { label: "バック",             value: "doggy style, from behind, bent over, gripping hips" },
+      { label: "立ちバック",         value: "standing from behind, against wall, standing sex, gripped" },
+      { label: "対面座位",           value: "face-to-face sitting, lap sitting, arms around neck, intimate" },
+      { label: "松葉崩し",           value: "side lying sex, spooning sex, laying side by side, legs intertwined" },
+      { label: "二穴同時",           value: "double penetration, filled from both sides, overwhelmed" },
+      { label: "集団・複数プレイ",   value: "group play, multiple partners, surrounded, overwhelmed" },
+      // 状態・後処理
+      { label: "中出し",             value: "creampie, cum inside, dripping, afterglow" },
+      { label: "顔射",               value: "facial, cum on face, messy, kneeling" },
+      { label: "ぶっかけ",           value: "bukkake, covered in cum, multiple, messy" },
+      { label: "事後・余韻",         value: "afterglow, lying in bed, satisfied expression, sheets, quiet" },
+      { label: "ハメ撮り風",         value: "POV sex, from above angle, hands visible, first-person perspective" },
+      // 触手
+      { label: "触手・絡みつく",     value: "tentacles, tentacle wrapping around body, slimy tentacle, restrained by tentacles" },
+      { label: "触手・拘束",         value: "tentacle bondage, bound by tentacles, arms pinned by tentacles, helpless, coiled" },
+      { label: "触手・挿入",         value: "tentacle penetration, tentacle inside, filled by tentacle, ahegao, overwhelmed" },
+      { label: "触手・複数",         value: "multiple tentacles, tentacles everywhere, covered in tentacles, all holes" },
+      { label: "触手・口",           value: "tentacle in mouth, oral tentacle, gagged by tentacle, forced open" },
+      { label: "触手・胸",           value: "tentacle on breasts, tentacle squeezing breast, chest wrapped in tentacles" },
+      { label: "触手・愛撫",         value: "tentacle caressing, gentle tentacle, tentacle stroking, pleasured by tentacle" },
+      { label: "触手・産卵",         value: "tentacle oviposition, eggs implanted, swollen belly, impregnation by tentacle" },
+      // スライム
+      { label: "スライム・全身",     value: "covered in slime, slime all over body, glistening slime, dripping slime" },
+      { label: "スライム・絡みつく", value: "slime wrapping body, slime coiling, engulfed in slime, slime monster girl" },
+      { label: "スライム・侵食",     value: "slime seeping into clothes, slime dissolving clothing, exposed by slime" },
+      { label: "スライム・挿入",     value: "slime penetration, slime inside body, filled with slime, slime monster sex" },
+      { label: "スライム・拘束",     value: "trapped in slime, immobilized by slime, slime prison, can't move" },
+      { label: "スライム嬢",         value: "slime girl, slime monster girl, translucent slime body, cute slime, slime form" },
+    ],
+  },
+
+  // R18・男性向け
+  {
+    id: "r18_male",
+    name: "R18・男性向け",
+    nameEn: "R18 / Male Perspective",
+    multiSelect: true,
+    tags: [
+      // 受け・奉仕される
+      { label: "女性に迫られる",       value: "female on top, aggressive woman, pushed down by girl, male receiving" },
+      { label: "騎乗位（される）",     value: "girl riding, cowgirl, female dominant, male lying down, ridden" },
+      { label: "フェラ奉仕される",     value: "receiving fellatio, girl kneeling before him, eye contact from below, male POV" },
+      { label: "手コキ奉仕される",     value: "receiving handjob, girl stroking, gentle hands, looking up at him" },
+      { label: "パイズリ奉仕される",   value: "receiving paizuri, breasts around him, girl looking up, soft breasts" },
+      { label: "クンニしてもらう",     value: "receiving cunnilingus on him, girl going down, male lying back, POV" },
+      { label: "密着・抱きしめられる", value: "being hugged tightly by girl, face buried in chest, clinging, warmth" },
+      { label: "添い寝・迫られる",     value: "girl snuggling close, inviting in bed, arms around him, intimate night" },
+      { label: "逆レイプ",             value: "reverse rape, girl forcing herself on him, pinned under woman, helpless male" },
+      { label: "複数女性に迫られる",   value: "multiple girls surrounding him, reverse harem, girls taking turns, overwhelmed male" },
+      // 攻め・支配
+      { label: "彼女を押し倒す",       value: "male pushing girl down, dominant male, girl lying under him, intense" },
+      { label: "後ろから抱く",         value: "hugging from behind, girl from behind, chin on shoulder, possessive" },
+      { label: "髪を掴む",             value: "grabbing her hair, hair pull, head tilted back, dominant grip" },
+      { label: "挿入・正常位",         value: "male inserting, missionary, dominant male, girl beneath him, deep thrust" },
+      { label: "バック挿入",           value: "taking from behind, doggy, male above, hands on her hips, grip" },
+      { label: "立ちバック",           value: "standing from behind, pinned to wall, lifting her leg, standing sex" },
+      { label: "対面騎乗（抱える）",   value: "lifting and holding, girl wrapped around him, standing face-to-face sex" },
+      { label: "首を掴む",             value: "hand on her throat, chokehold, dominant, eyes wide, breathless" },
+      { label: "両手首を押さえる",     value: "pinning both wrists above head, dominant male, girl helpless beneath him" },
+      { label: "足を開かせる",         value: "spreading her legs, male between her legs, exposed, dominant" },
+      // 状況・フェチ
+      { label: "射精・中出し（男視点）", value: "male POV cumming inside, creampie, satisfied male expression, first person" },
+      { label: "顔射する",             value: "male facial, cum on her face, kneeling girl, messy" },
+      { label: "筋肉を見せる",         value: "shirtless muscular male, flexing, impressive physique, admired" },
+      { label: "男性・全裸",           value: "naked male, nude male, full frontal male, bare" },
+      { label: "男性・上半身裸",       value: "shirtless male, bare chest, defined abs, topless man" },
+      { label: "男性がシャワー中",     value: "male in shower, wet muscular body, steam, running water down chest" },
+      { label: "男性が目覚め",         value: "male waking up, shirtless in bed, morning light, messy hair" },
+      { label: "男性がベッドで待つ",   value: "male on bed, sitting up, inviting look, muscular, bedroom" },
+      { label: "複数女性に囲まれる",   value: "surrounded by girls, harem, multiple women, one lucky guy, center" },
+      { label: "年上女性に誘われる",   value: "older woman seducing younger man, mature woman, onee-san, shota" },
+      { label: "同級生と秘密の関係",   value: "secret relationship with classmate, hidden, school setting, sneaky kiss" },
+      { label: "先生×生徒（男）",      value: "teacher seducing male student, older woman, uniform, forbidden, office" },
+      { label: "幼馴染との初体験",     value: "childhood friend first time, nervous, familiar face, emotional, bedroom" },
+      { label: "後輩女子に迫られる",   value: "junior girl aggressively pursuing, clingy kouhai, grabbing his arm, pleading eyes" },
+      // BL
+      { label: "BL・壁ドン",           value: "yaoi, male on male, kabe-don, intense eye contact, close faces, BL" },
+      { label: "BL・押し倒し",         value: "yaoi, boys love, pinned down, male on top of male, BL scene" },
+      { label: "BL・キス",             value: "boys love kiss, yaoi kiss, two males, passionate, eyes closed, BL" },
+      { label: "BL・後ろから抱擁",     value: "yaoi, hugged from behind by man, male embrace, BL, nuzzle" },
+      { label: "BL・挿入・受け",       value: "yaoi, uke receiving, male bottom, BL sex, submissive male" },
+      { label: "BL・挿入・攻め",       value: "yaoi, seme dominant, male top, BL sex, dominant male" },
+      { label: "BL・拘束",             value: "yaoi bondage, tied up male, BL restraint, helpless, rope" },
+      { label: "BL・複数プレイ",       value: "yaoi group, multiple males, BL gang, surrounded by men" },
+    ],
+  },
+
+  // ⑳ 背景・場所（アニメ向け拡充）
   {
     id: "background",
     name: "背景・場所",

@@ -1,10 +1,6 @@
 import { useState } from "react";
+import type { PromptLine } from "../types";
 import "./PromptOutput.css";
-
-interface PromptLine {
-  name: string;
-  tags: string[];
-}
 
 interface Props {
   prompt: string;
